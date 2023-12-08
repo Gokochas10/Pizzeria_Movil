@@ -2,34 +2,47 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:feather_icons/feather_icons.dart';
 import 'package:proyecto_restaurante/models/dish.dart';
+import 'package:proyecto_restaurante/models/ordenes.dart';
+
 
 class CustomDish extends StatefulWidget {
   final Dish dish;
-  const CustomDish({Key? key, required this.dish});
+  const CustomDish({super.key, required this.dish});
 
   @override
+  // ignore: library_private_types_in_public_api
   _CustomDishState createState() => _CustomDishState();
 }
-
+List<OrderdetailsSet> detalles2 = listDetalles();
+  void setQuantity(int productId, int cantidad) {
+    for (var det in detalles2) {
+      if (det.product == productId) {
+        det.quantity = cantidad;
+        print("se cabio ${det.quantity}");
+        return;  // No es necesario seguir buscando
+      }
+    }
+    print("no se cambio");
+  } 
 class _CustomDishState extends State<CustomDish> {
   int quantity = 0;
-
+  
   @override
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.all(8.0),
       child: Container(
         height: 200,
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           boxShadow: [
             BoxShadow(
               color: Colors.black12,
               blurRadius: 20,
-              offset: const Offset(0, 4),
+              offset: Offset(0, 4),
             ),
           ],
           color: Colors.white,
-          borderRadius: const BorderRadius.only(
+          borderRadius: BorderRadius.only(
             topLeft: Radius.circular(16),
             topRight: Radius.circular(16),
           ),
@@ -41,7 +54,7 @@ class _CustomDishState extends State<CustomDish> {
               height: 150,
               decoration: BoxDecoration(
                 image: DecorationImage(
-                  image: AssetImage("../assets/images/${widget.dish.image}"),
+                  image: AssetImage("assets/images/${widget.dish.image}"),
                   fit: BoxFit.cover,
                 ),
                 borderRadius: const BorderRadius.only(
@@ -75,7 +88,7 @@ class _CustomDishState extends State<CustomDish> {
                       height: 8), // Espacio entre la descripción y el tiempo
                   Row(
                     children: [
-                      Icon(
+                      const Icon(
                         FeatherIcons.clock,
                         color: Colors.red,
                         size: 15,
@@ -94,7 +107,7 @@ class _CustomDishState extends State<CustomDish> {
                       height: 8), // Espacio entre el tiempo y las estrellas
                   Row(
                     children: [
-                      Icon(
+                      const Icon(
                         FeatherIcons.star,
                         color: Colors.red,
                         size: 15,
@@ -123,13 +136,17 @@ class _CustomDishState extends State<CustomDish> {
                       setState(() {
                         if (quantity > 0) {
                           quantity--;
+                          print("dish id ${widget.dish.id}");
+                          setQuantity(widget.dish.id, quantity);
+                          print(detalles2[widget.dish.id-1].quantity);
+                         
                         }
                       });
                     },
-                    icon: Icon(FeatherIcons.minus, color: Colors.red, size: 15),
+                    icon: const Icon(FeatherIcons.minus, color: Colors.red, size: 15),
                   ),
                   Container(
-                    padding: EdgeInsets.symmetric(horizontal: 8),
+                    padding: const EdgeInsets.symmetric(horizontal: 8),
                     child: Text(
                       "$quantity",
                       style: GoogleFonts.inter(
@@ -141,11 +158,17 @@ class _CustomDishState extends State<CustomDish> {
                   IconButton(
                     onPressed: () {
                       setState(() {
-                        quantity++;
+                        if (quantity < 10){
+                          quantity++;
+                          print("dish id ${widget.dish.id}");
+                          setQuantity(widget.dish.id, quantity);
+                          print(detalles2[widget.dish.id-1].quantity);
+                        }
+              
                       });
                     },
                     icon:
-                        Icon(FeatherIcons.plus, color: Colors.green, size: 15),
+                        const Icon(FeatherIcons.plus, color: Colors.green, size: 15),
                   ),
                 ],
               ),

@@ -1,15 +1,27 @@
 import 'package:feather_icons/feather_icons.dart';
 import 'package:flutter/material.dart';
+import 'package:proyecto_restaurante/models/ordenes.dart';
 import 'package:proyecto_restaurante/sections/store/custom_hero.dart';
 import 'package:proyecto_restaurante/sections/store/store_dishes.dart';
+import 'package:proyecto_restaurante/services/user_services.dart';
 import '../sections/store/options.dart';
 
 class Store extends StatelessWidget {
-  const Store({Key? key});
+  const Store({super.key});
 
   @override
   Widget build(BuildContext context) {
     List<String> options1 = ["Cena", "Almuerzos", "Fideos", "Postre", "Pizza"];
+    List<OrderdetailsSet> detallesClone = [];
+    void dropDishes() {
+      List<OrderdetailsSet> detalles2 = [];
+      for (var detalle in detalles) {
+        if (detalle.quantity != 0) {
+          detalles2.add(detalle);
+        }
+      }
+      detallesClone = detalles2;
+    }
 
     List<String> options2 = [
       "Carnes",
@@ -23,11 +35,23 @@ class Store extends StatelessWidget {
       floatingActionButton: Padding(
         padding: const EdgeInsets.only(bottom: 50),
         child: FloatingActionButton(
-          onPressed: () {},
-          backgroundColor: Color(0xFFFF4317),
-          child: Stack(
+          onPressed: () async {
+            detallesClone = List.from(listDetalles());
+ 
+            dropDishes();
+        
+                       
+            await UserServices().postMensajes('1', detallesClone);
+            //volver cero la cantidad de todos los productos originales
+            for (var detalle in listDetalles()) {
+              detalle.quantity=0;
+            }
+            detallesClone=[];
+          },
+          backgroundColor: const Color(0xFFFF4317),
+          child: const Stack(
             children: [
-              Container(
+              SizedBox(
                 height: 35,
                 width: 35,
                 child: Icon(FeatherIcons.checkSquare, color: Colors.white),
@@ -37,8 +61,8 @@ class Store extends StatelessWidget {
                 right: 1,
                 child: CircleAvatar(
                   radius: 8,
-                  child: Text("4", style: TextStyle(fontSize: 12)),
                   backgroundColor: Colors.white,
+                  child: Text("4", style: TextStyle(fontSize: 12)),
                 ),
               ),
             ],
@@ -48,12 +72,12 @@ class Store extends StatelessWidget {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            CustomHero(),
-            SizedBox(height: 16),
+            const CustomHero(),
+            const SizedBox(height: 16),
             Options(options: options1),
-            SizedBox(height: 16),
+            const SizedBox(height: 16),
             Options(options: options2),
-            StoreDishes(),
+            const StoreDishes(),
           ],
         ),
       ),
