@@ -1,6 +1,8 @@
+// CustomHero.dart
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:feather_icons/feather_icons.dart';
+import 'package:proyecto_restaurante/pages/complete_order.dart'; // Importa la nueva página
 
 class CustomHero extends StatelessWidget {
   const CustomHero({Key? key});
@@ -39,9 +41,20 @@ class CustomHero extends StatelessWidget {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
-                        Icon(
-                          FeatherIcons.clipboard,
-                          color: Colors.white,
+                        IconButton(
+                          icon: Icon(
+                            FeatherIcons.clipboard,
+                            color: Colors.white,
+                          ),
+                          onPressed: () {
+                            // Navegar a la nueva página en blanco
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => CompleteOrder(),
+                              ),
+                            );
+                          },
                         ),
                       ],
                     ),
@@ -50,7 +63,7 @@ class CustomHero extends StatelessWidget {
               ),
               SizedBox(height: 16),
               Container(
-                margin: EdgeInsets.only(top: 160),
+                margin: EdgeInsets.only(top: 150),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
