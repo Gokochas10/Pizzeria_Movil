@@ -11,6 +11,7 @@ class Store extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    ValueNotifier<int> quantityNotifier = ValueNotifier<int>(0);
     List<String> options1 = ["Cena", "Almuerzos", "Fideos", "Postre", "Pizza"];
     List<OrderdetailsSet> detallesClone = [];
     void dropDishes() {
@@ -21,6 +22,15 @@ class Store extends StatelessWidget {
         }
       }
       detallesClone = detalles2;
+    }
+
+    void reload() {
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (BuildContext context) => Store(),
+        ),
+      );
     }
 
     List<String> options2 = [
@@ -37,16 +47,14 @@ class Store extends StatelessWidget {
         child: FloatingActionButton(
           onPressed: () async {
             detallesClone = List.from(listDetalles());
- 
             dropDishes();
-        
-                       
             await UserServices().postMensajes('1', detallesClone);
             //volver cero la cantidad de todos los productos originales
             for (var detalle in listDetalles()) {
-              detalle.quantity=0;
+              detalle.quantity = 0;
             }
-            detallesClone=[];
+            detallesClone = [];
+            reload();
           },
           backgroundColor: const Color(0xFFFF4317),
           child: const Stack(
