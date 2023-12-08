@@ -1,4 +1,5 @@
 class Dish {
+  int id;
   String name;
   String store;
   int proximity;
@@ -7,6 +8,7 @@ class Dish {
   int price;
 
   Dish({
+    required this.id,
     required this.name,
     required this.store,
     required this.proximity,
@@ -19,6 +21,7 @@ class Dish {
 List<Dish> ListOfDishes() {
   return [
     Dish(
+        id: 1,
         name: "Fried Chiness Rice",
         store: "Chiness Su'Cafe",
         proximity: 30,
@@ -26,6 +29,7 @@ List<Dish> ListOfDishes() {
         stars: 4.6,
         price: 25),
     Dish(
+        id: 2,
         name: "Fried Chiness Rice",
         store: "Chiness Su'Cafe",
         proximity: 30,
@@ -33,6 +37,7 @@ List<Dish> ListOfDishes() {
         stars: 4.6,
         price: 25),
     Dish(
+        id: 3,
         name: "Fried Chiness Rice",
         store: "Chiness Su'Cafe",
         proximity: 30,
@@ -40,6 +45,7 @@ List<Dish> ListOfDishes() {
         stars: 4.6,
         price: 25),
     Dish(
+        id: 4,
         name: "Fried Chiness Rice",
         store: "Chiness Su'Cafe",
         proximity: 30,
