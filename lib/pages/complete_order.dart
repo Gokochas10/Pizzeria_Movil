@@ -3,12 +3,34 @@ import 'package:proyecto_restaurante/models/dish.dart';
 import 'package:proyecto_restaurante/models/ordenes.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:feather_icons/feather_icons.dart';
+import 'package:proyecto_restaurante/pages/store.dart';
+import 'package:proyecto_restaurante/services/user_services.dart';
 
 class CompleteOrder extends StatelessWidget {
   const CompleteOrder({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    List<OrderdetailsSet> detallesClone = [];
+    void dropDishes() {
+      List<OrderdetailsSet> detalles2 = [];
+      for (var detalle in detalles) {
+        if (detalle.quantity != 0) {
+          detalles2.add(detalle);
+        }
+      }
+      detallesClone = detalles2;
+    }
+
+    void reload() {
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (BuildContext context) => const Store(),
+        ),
+      );
+    }
+
     return Scaffold(
       appBar: AppBar(
         title: Text('Mi Orden', style: GoogleFonts.inter(fontSize: 20.0)),
@@ -17,9 +39,9 @@ class CompleteOrder extends StatelessWidget {
         children: [
           // Fondo con la imagen
           Container(
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
               image: DecorationImage(
-                image: AssetImage('../assets/images/bg_confirmar.jpg'),
+                image: AssetImage('assets/images/bg_confirmar.jpg'),
                 fit: BoxFit.cover,
               ),
             ),
@@ -48,8 +70,8 @@ class CompleteOrder extends StatelessWidget {
 
                     return Card(
                       elevation: 5.0,
-                      margin:
-                          EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
+                      margin: const EdgeInsets.symmetric(
+                          horizontal: 8.0, vertical: 4.0),
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Column(
@@ -62,7 +84,7 @@ class CompleteOrder extends StatelessWidget {
                                 fontSize: 16.0,
                               ),
                             ),
-                            SizedBox(height: 8.0),
+                            const SizedBox(height: 8.0),
                             Text(
                               'Cantidad: ${detalle.quantity}',
                               style: GoogleFonts.inter(
@@ -79,10 +101,21 @@ class CompleteOrder extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: ElevatedButton.icon(
-                  onPressed: () {
+                  onPressed: () async {
+                    detallesClone = List.from(listDetalles());
+                    dropDishes();
+                    await UserServices().postMensajes('1', detallesClone);
+                    //volver cero la cantidad de todos los productos originales
+                    for (var detalle in listDetalles()) {
+                      detalle.quantity = 0;
+                    }
+                    detallesClone = [];
+                    // ignore: use_build_context_synchronously
                     _mostrarSnackbar(context, 'Datos enviados con éxito');
+                    reload();
                   },
-                  icon: Icon(FeatherIcons.checkCircle, color: Colors.white),
+                  icon:
+                      const Icon(FeatherIcons.checkCircle, color: Colors.white),
                   label: Text(
                     'Confirmar Orden',
                     style: GoogleFonts.inter(fontSize: 18.0)
@@ -108,7 +141,7 @@ class CompleteOrder extends StatelessWidget {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         content: Text(mensaje),
-        duration: Duration(seconds: 2),
+        duration: const Duration(seconds: 2),
       ),
     );
   }
