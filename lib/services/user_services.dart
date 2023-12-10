@@ -22,7 +22,23 @@ class UserServices {
       return <Dish>[];
     }
   }
-  postMensajes(String idmesa,List<OrderdetailsSet> detalles) async {
+  getTables() async {
+    try{
+      var url = Uri.parse('http://10.0.2.2:8000/main/list/tables');
+      var response = await http.get(url);
+      if(response.statusCode == 200){
+        List<dynamic> body = jsonDecode(response.body);
+        List<dynamic> availableTables = body.where((table) => table['available'] == true).toList();
+      return availableTables;
+      }else{
+        return <dynamic>[];
+      }
+    }catch(e){
+      print("no vale");
+      return <dynamic>[];
+    }
+  }
+  postOrders(String idmesa,List<OrderdetailsSet> detalles) async {
     try{
       Map<String, dynamic> jsonData = {
         "table": idmesa,
