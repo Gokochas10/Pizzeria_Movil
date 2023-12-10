@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:proyecto_restaurante/widgets/simple_option.dart';
 
 class Options extends StatefulWidget {

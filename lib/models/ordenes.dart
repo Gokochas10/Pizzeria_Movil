@@ -48,7 +48,10 @@ List<OrderdetailsSet> detalles = [
   OrderdetailsSet(product: 2, quantity: 0),
   OrderdetailsSet(product: 3, quantity: 0),
   OrderdetailsSet(product: 4, quantity: 0),
-  OrderdetailsSet(product: 5, quantity: 0)
+  OrderdetailsSet(product: 5, quantity: 0),
+  OrderdetailsSet(product: 6, quantity: 0),
+  OrderdetailsSet(product: 7, quantity: 0),
+  OrderdetailsSet(product: 8, quantity: 0)
 ];
 
 List<OrderdetailsSet> listDetalles(){

@@ -1,10 +1,11 @@
 import 'package:feather_icons/feather_icons.dart';
 import 'package:flutter/material.dart';
-import 'package:proyecto_restaurante/models/ordenes.dart';
 import 'package:proyecto_restaurante/sections/store/custom_hero.dart';
+import 'package:proyecto_restaurante/sections/store/dropdown.dart';
 import 'package:proyecto_restaurante/sections/store/store_dishes.dart';
-import 'package:proyecto_restaurante/services/user_services.dart';
 import '../sections/store/options.dart';
+
+const List<String> list = <String>['One', 'Two', 'Three', 'Four'];
 
 class Store extends StatelessWidget {
   const Store({super.key});
@@ -12,17 +13,7 @@ class Store extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     List<String> options1 = ["Cena", "Almuerzos", "Fideos", "Postre", "Pizza"];
-    List<OrderdetailsSet> detallesClone = [];
-    void dropDishes() {
-      List<OrderdetailsSet> detalles2 = [];
-      for (var detalle in detalles) {
-        if (detalle.quantity != 0) {
-          detalles2.add(detalle);
-        }
-      }
-      detallesClone = detalles2;
-    }
-
+    String dropdownValue = list.first;
     List<String> options2 = [
       "Carnes",
       "Filetes",
@@ -35,19 +26,7 @@ class Store extends StatelessWidget {
       floatingActionButton: Padding(
         padding: const EdgeInsets.only(bottom: 50),
         child: FloatingActionButton(
-          onPressed: () async {
-            detallesClone = List.from(listDetalles());
- 
-            dropDishes();
-        
-                       
-            await UserServices().postMensajes('1', detallesClone);
-            //volver cero la cantidad de todos los productos originales
-            for (var detalle in listDetalles()) {
-              detalle.quantity=0;
-            }
-            detallesClone=[];
-          },
+          onPressed: () {},
           backgroundColor: const Color(0xFFFF4317),
           child: const Stack(
             children: [
@@ -77,7 +56,8 @@ class Store extends StatelessWidget {
             Options(options: options1),
             const SizedBox(height: 16),
             Options(options: options2),
-            const StoreDishes(),
+            const MyWidget(),
+            const StoreDishes()
           ],
         ),
       ),

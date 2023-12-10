@@ -1,14 +1,19 @@
+// CustomHero.dart
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:feather_icons/feather_icons.dart';
+import 'package:proyecto_restaurante/models/ordenes.dart';
+import 'package:proyecto_restaurante/pages/Login.dart';
+import 'package:proyecto_restaurante/pages/complete_order.dart';
+// Importa la nueva página
 
 class CustomHero extends StatelessWidget {
-  const CustomHero({Key? key});
+  const CustomHero({super.key});
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: MediaQuery.of(context).size.height * 0.37,
-      decoration: BoxDecoration(
+      height: MediaQuery.of(context).size.height * 0.40,
+      decoration: const BoxDecoration(
         image: DecorationImage(
           image: AssetImage("assets/images/bg_restaurante.jpg"),
           fit: BoxFit.cover,
@@ -26,31 +31,48 @@ class CustomHero extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   IconButton(
-                    icon: Icon(
+                    icon: const Icon(
                       Icons.arrow_back_ios,
                       color: Colors.white,
                     ),
                     onPressed: () {
-                      // Navegar a la página anterior
-                      Navigator.pop(context);
+                      for (var detalle in listDetalles()) {
+                      detalle.quantity = 0;
+                    }
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                            builder: (BuildContext context) => Login()),
+                      );
                     },
                   ),
                   Expanded(
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
-                        Icon(
-                          FeatherIcons.clipboard,
-                          color: Colors.white,
+                        IconButton(
+                          icon: const Icon(
+                            FeatherIcons.clipboard,
+                            color: Colors.white,
+                          ),
+                          onPressed: () {
+                            // Navegar a la nueva página en blanco
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => const CompleteOrder(),
+                              ),
+                            );
+                          },
                         ),
                       ],
                     ),
                   ),
                 ],
               ),
-              SizedBox(height: 16),
+              const SizedBox(height: 16),
               Container(
-                margin: EdgeInsets.only(top: 160),
+                margin: const EdgeInsets.only(top: 150),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -62,12 +84,12 @@ class CustomHero extends StatelessWidget {
                         fontWeight: FontWeight.w600,
                       ),
                     ),
-                    SizedBox(width: 8),
-                    Icon(
+                    const SizedBox(width: 8),
+                    const Icon(
                       Icons.star,
                       color: Colors.black,
                     ),
-                    SizedBox(width: 4),
+                    const SizedBox(width: 4),
                     Text(
                       "4.6",
                       style: GoogleFonts.inter(
@@ -80,7 +102,7 @@ class CustomHero extends StatelessWidget {
                 ),
               ),
               Container(
-                margin: EdgeInsets.only(top: 1),
+                margin: const EdgeInsets.only(top: 1),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
