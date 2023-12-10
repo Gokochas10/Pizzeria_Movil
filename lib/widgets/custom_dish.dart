@@ -13,7 +13,10 @@ class CustomDish extends StatefulWidget {
   // ignore: library_private_types_in_public_api
   _CustomDishState createState() => _CustomDishState();
 }
-List<OrderdetailsSet> detalles2 = listDetalles();
+
+class _CustomDishState extends State<CustomDish> {
+  int quantity = 0;
+  List<OrderdetailsSet> detalles2 = listDetalles();
   void setQuantity(int productId, int cantidad) {
     for (var det in detalles2) {
       if (det.product == productId) {
@@ -24,9 +27,6 @@ List<OrderdetailsSet> detalles2 = listDetalles();
     }
     print("no se cambio");
   } 
-class _CustomDishState extends State<CustomDish> {
-  int quantity = 0;
-  
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -78,7 +78,7 @@ class _CustomDishState extends State<CustomDish> {
                     ),
                   ),
                   Text(
-                    widget.dish.store,
+                    widget.dish.store!,
                     style: GoogleFonts.inter(
                       color: Colors.black,
                       fontSize: 12,

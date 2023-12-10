@@ -4,7 +4,9 @@ import 'package:proyecto_restaurante/models/ordenes.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:feather_icons/feather_icons.dart';
 import 'package:proyecto_restaurante/pages/store.dart';
+import 'package:proyecto_restaurante/sections/store/dropdown.dart';
 import 'package:proyecto_restaurante/services/user_services.dart';
+
 
 class CompleteOrder extends StatelessWidget {
   const CompleteOrder({Key? key}) : super(key: key);
@@ -21,7 +23,7 @@ class CompleteOrder extends StatelessWidget {
       }
       detallesClone = detalles2;
     }
-
+  List<Dish> platos = ListOfDishes() as List<Dish>;
     void reload() {
       Navigator.pushReplacement(
         context,
@@ -65,8 +67,9 @@ class CompleteOrder extends StatelessWidget {
                   children: detalles
                       .where((detalle) => detalle.quantity != 0)
                       .map((detalle) {
-                    Dish dish = ListOfDishes()
-                        .firstWhere((dish) => dish.id == detalle.product);
+                        
+                    Dish dish =  platos
+                        .firstWhere((dish) => dish.id == detalle.product) ;
 
                     return Card(
                       elevation: 5.0,
@@ -91,6 +94,7 @@ class CompleteOrder extends StatelessWidget {
                                 fontSize: 14.0,
                               ),
                             ),
+                            Text('Mesa: ${index}')
                           ],
                         ),
                       ),
@@ -104,7 +108,12 @@ class CompleteOrder extends StatelessWidget {
                   onPressed: () async {
                     detallesClone = List.from(listDetalles());
                     dropDishes();
-                    await UserServices().postMensajes('1', detallesClone);
+                    if (detallesClone.isEmpty) {
+                      // ignore: use_build_context_synchronously
+                      _mostrarSnackbar(context, 'No hay productos en la orden');
+                      return;
+                    }
+                    await UserServices().postOrders(index!, detallesClone);
                     //volver cero la cantidad de todos los productos originales
                     for (var detalle in listDetalles()) {
                       detalle.quantity = 0;

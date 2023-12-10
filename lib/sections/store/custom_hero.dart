@@ -2,6 +2,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:feather_icons/feather_icons.dart';
+import 'package:proyecto_restaurante/models/ordenes.dart';
+import 'package:proyecto_restaurante/pages/Login.dart';
 import 'package:proyecto_restaurante/pages/complete_order.dart';
 // Importa la nueva página
 
@@ -10,7 +12,7 @@ class CustomHero extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: MediaQuery.of(context).size.height * 0.37,
+      height: MediaQuery.of(context).size.height * 0.40,
       decoration: const BoxDecoration(
         image: DecorationImage(
           image: AssetImage("assets/images/bg_restaurante.jpg"),
@@ -34,7 +36,14 @@ class CustomHero extends StatelessWidget {
                       color: Colors.white,
                     ),
                     onPressed: () {
-                      Navigator.pop(context);
+                      for (var detalle in listDetalles()) {
+                      detalle.quantity = 0;
+                    }
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                            builder: (BuildContext context) => Login()),
+                      );
                     },
                   ),
                   Expanded(
