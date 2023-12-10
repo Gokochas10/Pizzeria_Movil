@@ -21,7 +21,7 @@ class CompleteOrder extends StatelessWidget {
       }
       detallesClone = detalles2;
     }
-
+  List<Dish> platos = ListOfDishes() as List<Dish>;
     void reload() {
       Navigator.pushReplacement(
         context,
@@ -65,8 +65,9 @@ class CompleteOrder extends StatelessWidget {
                   children: detalles
                       .where((detalle) => detalle.quantity != 0)
                       .map((detalle) {
-                    Dish dish = ListOfDishes()
-                        .firstWhere((dish) => dish.id == detalle.product);
+                        
+                    Dish dish =  platos
+                        .firstWhere((dish) => dish.id == detalle.product) ;
 
                     return Card(
                       elevation: 5.0,

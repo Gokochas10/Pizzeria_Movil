@@ -5,7 +5,7 @@ import 'package:proyecto_restaurante/sections/store/store_dishes.dart';
 import '../sections/store/options.dart';
 
 class Store extends StatelessWidget {
-  const Store({Key? key});
+  const Store({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -24,10 +24,10 @@ class Store extends StatelessWidget {
         padding: const EdgeInsets.only(bottom: 50),
         child: FloatingActionButton(
           onPressed: () {},
-          backgroundColor: Color(0xFFFF4317),
-          child: Stack(
+          backgroundColor: const Color(0xFFFF4317),
+          child: const Stack(
             children: [
-              Container(
+              SizedBox(
                 height: 35,
                 width: 35,
                 child: Icon(FeatherIcons.checkSquare, color: Colors.white),
@@ -37,8 +37,8 @@ class Store extends StatelessWidget {
                 right: 1,
                 child: CircleAvatar(
                   radius: 8,
-                  child: Text("4", style: TextStyle(fontSize: 12)),
                   backgroundColor: Colors.white,
+                  child: Text("4", style: TextStyle(fontSize: 12)),
                 ),
               ),
             ],
@@ -48,12 +48,12 @@ class Store extends StatelessWidget {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            CustomHero(),
-            SizedBox(height: 16),
+            const CustomHero(),
+            const SizedBox(height: 16),
             Options(options: options1),
-            SizedBox(height: 16),
+            const SizedBox(height: 16),
             Options(options: options2),
-            StoreDishes(),
+            const StoreDishes(),
           ],
         ),
       ),

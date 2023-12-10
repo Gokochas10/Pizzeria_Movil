@@ -1,16 +1,17 @@
+// ignore: file_names
 import 'package:flutter/material.dart';
 import 'package:proyecto_restaurante/pages/store.dart';
 import 'package:proyecto_restaurante/widgets/custom_button.dart';
 
 class Login extends StatelessWidget {
   const Login({Key? key});
-
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
         width: double.infinity,
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           image: DecorationImage(
             image: AssetImage("assets/images/bg_fondo.jpg"),
             fit: BoxFit.cover,
@@ -34,7 +35,7 @@ class Login extends StatelessWidget {
               onTap: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => Store()),
+                  MaterialPageRoute(builder: (BuildContext context) => Store()),
                 );
               },
               child: CustomButton(
@@ -50,7 +51,7 @@ class Login extends StatelessWidget {
               onTap: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => Store()),
+                  MaterialPageRoute(builder: (BuildContext context) => Store()),
                 );
               },
               child: CustomButton(
@@ -61,9 +62,9 @@ class Login extends StatelessWidget {
                 onPressed: () {},
               ),
             ),
-            SizedBox(height: 16),
+            const SizedBox(height: 16),
             RichText(
-              text: TextSpan(
+              text: const TextSpan(
                 text: '¿Ya tienes una cuenta? ',
                 style: TextStyle(
                   fontWeight: FontWeight.bold,

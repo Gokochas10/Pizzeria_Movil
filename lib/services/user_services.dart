@@ -1,23 +1,25 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'package:proyecto_restaurante/models/dish.dart';
 import 'package:proyecto_restaurante/models/ordenes.dart';
 
 class UserServices {
-  getMensajes() async {
+  getDishes() async {
     try{
-      var url = Uri.parse('http://10.0.2.2:8000/api/orders/');
+      var url = Uri.parse('http://10.0.2.2:8000/main/list/products');
       var response = await http.get(url);
       if(response.statusCode == 200){
-        List<dynamic> dynamicList = jsonDecode(response.body);
-        List<Ordenes> body = dynamicList.map((item) => Ordenes.fromJson(item)).toList();
-        print(body.runtimeType);
+        List<dynamic> body = jsonDecode(response.body);
+        // ignore: unnecessary_null_comparison
+        //List<Dish> dishes = body.map((dynamic item) => Dish.fromJson(item)).toList();
+        //print(dishes.runtimeType);
         return body;
       }else{
-        return null;
+        return <Dish>[];
       }
     }catch(e){
-     
-      return null;
+      print("no vale");
+      return <Dish>[];
     }
   }
   postMensajes(String idmesa,List<OrderdetailsSet> detalles) async {

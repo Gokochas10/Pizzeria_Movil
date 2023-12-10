@@ -1,6 +1,4 @@
-import 'package:feather_icons/feather_icons.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:proyecto_restaurante/models/dish.dart';
 import 'package:proyecto_restaurante/widgets/custom_dish.dart';
 
