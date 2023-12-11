@@ -2,15 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:proyecto_restaurante/services/user_services.dart';
 
-class MyWidget extends StatefulWidget {
-  const MyWidget({super.key});
+class DropDown extends StatefulWidget {
+  const DropDown({super.key});
 
   @override
   // ignore: library_private_types_in_public_api
-  _MyWidgetState createState() => _MyWidgetState();
+  _DropDown createState() => _DropDown();
 }
   String? index;
-class _MyWidgetState extends State<MyWidget> {
+class _DropDown extends State<DropDown> {
   List<String> items = [];
 
   @override

@@ -5,6 +5,7 @@ import 'package:feather_icons/feather_icons.dart';
 import 'package:proyecto_restaurante/models/ordenes.dart';
 import 'package:proyecto_restaurante/pages/Login.dart';
 import 'package:proyecto_restaurante/pages/complete_order.dart';
+import 'package:proyecto_restaurante/sections/store/dropdown.dart';
 // Importa la nueva página
 
 class CustomHero extends StatelessWidget {
@@ -37,8 +38,9 @@ class CustomHero extends StatelessWidget {
                     ),
                     onPressed: () {
                       for (var detalle in listDetalles()) {
-                      detalle.quantity = 0;
-                    }
+                        detalle.quantity = 0;
+                      }
+                      index = null;
                       Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(
@@ -50,21 +52,29 @@ class CustomHero extends StatelessWidget {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
-                        IconButton(
-                          icon: const Icon(
-                            FeatherIcons.clipboard,
-                            color: Colors.white,
+                        Container(
+                          decoration: const BoxDecoration(
+                            color: Colors
+                                .white, // Cambia esto al color de fondo que desees
+                            shape: BoxShape.circle,
                           ),
-                          onPressed: () {
-                            // Navegar a la nueva página en blanco
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => const CompleteOrder(),
-                              ),
-                            );
-                          },
-                        ),
+                          child: IconButton(
+                            icon: const Icon(
+                              FeatherIcons.clipboard,
+                              color: Colors.black,
+                            ),
+                            iconSize: 30.0,
+                            onPressed: () {
+                              // Navegar a la nueva página en blanco
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => const CompleteOrder(),
+                                ),
+                              );
+                            },
+                          ),
+                        )
                       ],
                     ),
                   ),
@@ -77,7 +87,7 @@ class CustomHero extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      "Le Charme Culiniare",
+                      "La Cigarra",
                       style: GoogleFonts.inter(
                         color: Colors.black,
                         fontSize: 24,
@@ -85,7 +95,7 @@ class CustomHero extends StatelessWidget {
                       ),
                     ),
                     const SizedBox(width: 8),
-                    const Icon(
+                    /*const Icon(
                       Icons.star,
                       color: Colors.black,
                     ),
@@ -97,7 +107,7 @@ class CustomHero extends StatelessWidget {
                         fontSize: 16,
                         fontWeight: FontWeight.w600,
                       ),
-                    ),
+                    ),*/
                   ],
                 ),
               ),
@@ -107,7 +117,7 @@ class CustomHero extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      "Restaurante-Comida-Ecuatoriana-Vinos",
+                      "Restaurante-Comida-Italiana",
                       style: GoogleFonts.inter(
                         color: Colors.black,
                         fontSize: 13,

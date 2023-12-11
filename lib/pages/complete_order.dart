@@ -94,7 +94,11 @@ class CompleteOrder extends StatelessWidget {
                                 fontSize: 14.0,
                               ),
                             ),
-                            Text('Mesa: ${index}')
+                            if (index == null)
+                                Text('Mesa: No seleccionada')
+                            else
+                              Text('Mesa: ${index}'),
+                            
                           ],
                         ),
                       ),
@@ -113,6 +117,11 @@ class CompleteOrder extends StatelessWidget {
                       _mostrarSnackbar(context, 'No hay productos en la orden');
                       return;
                     }
+                    if (index == null) {
+                      // ignore: use_build_context_synchronously
+                      _mostrarSnackbar(context, 'Seleccione una mesa');
+                      return;
+                    }
                     await UserServices().postOrders(index!, detallesClone);
                     //volver cero la cantidad de todos los productos originales
                     for (var detalle in listDetalles()) {
@@ -121,6 +130,7 @@ class CompleteOrder extends StatelessWidget {
                     detallesClone = [];
                     // ignore: use_build_context_synchronously
                     _mostrarSnackbar(context, 'Datos enviados con éxito');
+                    index = null;
                     reload();
                   },
                   icon:
