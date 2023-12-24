@@ -1,11 +1,26 @@
-// ignore: file_names
 import 'package:flutter/material.dart';
 import 'package:proyecto_restaurante/pages/store.dart';
+import 'package:proyecto_restaurante/services/push_notification_service.dart';
 import 'package:proyecto_restaurante/widgets/custom_button.dart';
 
-class Login extends StatelessWidget {
-  const Login({Key? key});
-  
+class Login extends StatefulWidget {
+   const Login({super.key});
+
+  @override
+  State<Login> createState() => _LoginState();
+}
+
+class _LoginState extends State<Login> {
+  PushNotificationService pushNotificationService = PushNotificationService();
+
+  @override
+  void initState() {
+    super.initState();
+    pushNotificationService.getToken().then((value){
+      print("Token: $value");
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
