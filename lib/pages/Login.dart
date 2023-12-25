@@ -1,24 +1,28 @@
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:proyecto_restaurante/pages/store.dart';
 import 'package:proyecto_restaurante/services/push_notification_service.dart';
 import 'package:proyecto_restaurante/widgets/custom_button.dart';
 
+Future<void> _backgroundMessageHandler(RemoteMessage message) async {
+  print("Handling a background message: ${message.messageId}");
+}
+
 class Login extends StatefulWidget {
-   const Login({super.key});
+  const Login({super.key});
 
   @override
   State<Login> createState() => _LoginState();
 }
 
 class _LoginState extends State<Login> {
-  PushNotificationService pushNotificationService = PushNotificationService();
-
   @override
   void initState() {
     super.initState();
-    pushNotificationService.getToken().then((value){
-      print("Token: $value");
-    });
+    final pushNotificationService = PushNotificationService();
+    pushNotificationService.getToken();
+    pushNotificationService.registerTokenRefresh();
+    FirebaseMessaging.onBackgroundMessage(_backgroundMessageHandler);
   }
 
   @override
