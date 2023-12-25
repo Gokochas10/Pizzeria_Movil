@@ -65,4 +65,33 @@ class UserServices {
       return false;
     }
   }
+  postUserCredentials(String user, String password) async{
+    try{
+      Map<String, dynamic> jsonData = {
+        "username": user,
+        "password": password,
+      };
+      print(jsonData);
+      // Convertir el objeto JSON a una cadena JSON
+      String jsonBody = jsonEncode(jsonData);
+      var url = Uri.parse('http://10.0.2.2:8000/api/token/');
+      var response = await http.post(
+        url,
+        headers: {"Content-Type": "application/json"},
+        body: jsonBody
+      );
+      print(response.statusCode);
+      if(response.statusCode == 200){
+        
+        return true;
+        
+      }else{
+        print('a');
+        return false;
+      }
+    }catch(e){
+      
+      return false;
+    }
+  }
 }
