@@ -1,3 +1,4 @@
+// ignore: file_names
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:proyecto_restaurante/pages/store.dart';
@@ -25,22 +26,24 @@ class _LoginState extends State<Login> {
     pushNotificationService.registerTokenRefresh();
     FirebaseMessaging.onBackgroundMessage(_backgroundMessageHandler);
   }
+
   final _formKey = GlobalKey<FormState>();
   String _username = '';
   String _password = '';
-  void _submitForm() async{
+  void _submitForm() async {
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
       // Aquí puedes hacer tu petición POST con _username y _password
       print('Username: $_username');
       print('Password: $_password');
-      if(await UserServices().postUserCredentials(_username, _password) == true){
+      if (await UserServices().postUserCredentials(_username, _password) ==
+          true) {
         // ignore: use_build_context_synchronously
         Navigator.push(
           context,
           MaterialPageRoute(builder: (context) => const Store()),
         );
-      }else{
+      } else {
         print("no vale");
       }
     }
