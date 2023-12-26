@@ -25,10 +25,12 @@ class Ordenes {
 }
 
 class OrderdetailsSet {
+    int? id;
     int product;
     int quantity;
 
     OrderdetailsSet({
+        this.id,
         required this.product,
         required this.quantity,
     });
