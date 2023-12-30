@@ -1,5 +1,5 @@
-
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
@@ -39,5 +39,39 @@ class PushNotificationService {
     } else {
       print('Failed to update token on server: ${response.body}');
     }
+  }
+
+  void showOverlayNotification(BuildContext context, RemoteMessage message) {
+    final overlay = Overlay.of(context);
+    OverlayEntry? overlayEntry;
+
+    overlayEntry = OverlayEntry(
+      builder: (context) => Positioned(
+        top: 50, // Posición en la pantalla
+        left: 10,
+        right: 10,
+        child: Material(
+          color: Colors.transparent,
+          child: Container(
+            padding: EdgeInsets.all(10),
+            margin: EdgeInsets.symmetric(horizontal: 10),
+            color: Colors.white,
+            child: ListTile(
+              title: Text(message.notification?.title ?? 'Notificación'),
+              subtitle: Text(
+                  message.notification?.body ?? 'No hay detalles adicionales.'),
+              trailing: IconButton(
+                icon: Icon(Icons.close),
+                onPressed: () {
+                  overlayEntry?.remove(); // Solo elimina el OverlayEntry
+                },
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+
+    overlay?.insert(overlayEntry);
   }
 }
