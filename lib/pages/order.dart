@@ -38,27 +38,36 @@ class _OrderState extends State<Order> {
       appBar: AppBar(
         title: Text('Order Page'),
       ),
-      body: ListView.builder(
-        itemCount: orders.length,
-        itemBuilder: (context, index) {
-          var order = orders[index];
-          var details = order['orderdetails_set']
-              .where((detail) => detail['detail_status'] == 'L')
-              .toList();
+      body: Container(
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage(
+                'assets/images/bg_principal.png'), // Reemplaza con la ruta de tu imagen
+            fit: BoxFit.cover,
+          ),
+        ),
+        child: ListView.builder(
+          itemCount: orders.length,
+          itemBuilder: (context, index) {
+            var order = orders[index];
+            var details = order['orderdetails_set']
+                .where((detail) => detail['detail_status'] == 'L')
+                .toList();
 
-          return ExpansionTile(
-            title: Text('Table ${order['table']}'),
-            children: details.map<Widget>((detail) {
-              return ListTile(
-                title: Text(detail['product_name']),
-                trailing: Text('Quantity: ${detail['quantity']}'),
-                onTap: () {
-                  changeStatus(detail['id'].toString());
-                },
-              );
-            }).toList(),
-          );
-        },
+            return ExpansionTile(
+              title: Text('Table ${order['table']}'),
+              children: details.map<Widget>((detail) {
+                return ListTile(
+                  title: Text(detail['product_name']),
+                  trailing: Text('Quantity: ${detail['quantity']}'),
+                  onTap: () {
+                    changeStatus(detail['id'].toString());
+                  },
+                );
+              }).toList(),
+            );
+          },
+        ),
       ),
     );
   }
