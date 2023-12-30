@@ -35,7 +35,7 @@ class Store extends StatelessWidget {
                   builder: (context) => Order()), // Order() es la nueva página
             );
           },
-          backgroundColor: const Color(0xFFFF4317),
+          backgroundColor: Colors.black,
           child: const Stack(
             children: [
               SizedBox(

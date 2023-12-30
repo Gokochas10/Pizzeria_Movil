@@ -7,7 +7,6 @@ import 'package:proyecto_restaurante/pages/store.dart';
 import 'package:proyecto_restaurante/sections/store/dropdown.dart';
 import 'package:proyecto_restaurante/services/user_services.dart';
 
-
 class CompleteOrder extends StatelessWidget {
   const CompleteOrder({Key? key}) : super(key: key);
 
@@ -23,7 +22,8 @@ class CompleteOrder extends StatelessWidget {
       }
       detallesClone = detalles2;
     }
-  List<Dish> platos = ListOfDishes() as List<Dish>;
+
+    List<Dish> platos = ListOfDishes() as List<Dish>;
     void reload() {
       Navigator.pushReplacement(
         context,
@@ -43,7 +43,7 @@ class CompleteOrder extends StatelessWidget {
           Container(
             decoration: const BoxDecoration(
               image: DecorationImage(
-                image: AssetImage('assets/images/bg_confirmar.jpg'),
+                image: AssetImage('assets/images/bg_principal.png'),
                 fit: BoxFit.cover,
               ),
             ),
@@ -58,7 +58,9 @@ class CompleteOrder extends StatelessWidget {
                 child: Text(
                   'Confirmar Orden',
                   style: GoogleFonts.inter(
-                      fontSize: 24.0, fontWeight: FontWeight.bold),
+                      fontSize: 24.0,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white), // Cambiado a color blanco
                   textAlign: TextAlign.center,
                 ),
               ),
@@ -67,9 +69,8 @@ class CompleteOrder extends StatelessWidget {
                   children: detalles
                       .where((detalle) => detalle.quantity != 0)
                       .map((detalle) {
-                        
-                    Dish dish =  platos
-                        .firstWhere((dish) => dish.id == detalle.product) ;
+                    Dish dish =
+                        platos.firstWhere((dish) => dish.id == detalle.product);
 
                     return Card(
                       elevation: 5.0,
@@ -127,11 +128,11 @@ class CompleteOrder extends StatelessWidget {
                       const Icon(FeatherIcons.checkCircle, color: Colors.white),
                   label: Text(
                     'Confirmar Orden',
-                    style: GoogleFonts.inter(fontSize: 18.0)
-                        .copyWith(color: Colors.white),
+                    style:
+                        GoogleFonts.inter(fontSize: 18.0, color: Colors.white),
                   ),
                   style: ElevatedButton.styleFrom(
-                    primary: Color(0xFFFF4317),
+                    primary: Colors.black,
                     padding: EdgeInsets.symmetric(vertical: 16.0),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10.0),
