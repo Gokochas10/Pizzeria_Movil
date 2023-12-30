@@ -9,10 +9,24 @@ class Order extends StatelessWidget {
       appBar: AppBar(
         title: Text('Order Page'),
       ),
-      body: Center(
-        child: Text(
-          'This is the Order Page.',
-          style: TextStyle(fontSize: 20),
+      body: Container(
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage(
+                'assets/images/bg_principal.png'), // Reemplaza con la ruta de tu imagen
+            fit: BoxFit.cover,
+          ),
+        ),
+        child: Center(
+          child: Text(
+            'Ordenes',
+            style: TextStyle(
+              fontSize: 20,
+              color: Colors.white, // Color del texto
+              fontWeight: FontWeight
+                  .bold, // Puedes ajustar el peso de la fuente según tus preferencias
+            ),
+          ),
         ),
       ),
     );
