@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:proyecto_restaurante/models/dish.dart';
-import 'package:proyecto_restaurante/pages/store.dart';
-import 'package:proyecto_restaurante/services/user_services.dart';
 
+import 'package:proyecto_restaurante/services/user_services.dart';
 
 class Order extends StatefulWidget {
   const Order({Key? key}) : super(key: key);
@@ -21,12 +19,13 @@ class _OrderState extends State<Order> {
   }
 
   void loadOrders() async {
-    var fetchedOrders = await UserServices().getOrders(); // Asume que esta función devuelve la lista de pedidos
+    var fetchedOrders = await UserServices()
+        .getOrders(); // Asume que esta función devuelve la lista de pedidos
     setState(() {
       orders = fetchedOrders;
     });
-    
   }
+
   void changeStatus(String id) async {
     await UserServices().changeStatus(id);
     loadOrders(); // Recarga los pedidos después de cambiar el estado
@@ -36,29 +35,40 @@ class _OrderState extends State<Order> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Order Page'),
+        title: Text('Order Page',
+        style: TextStyle(color: Colors.white), ),
+        
       ),
-      body: ListView.builder(
-        itemCount: orders.length,
-        itemBuilder: (context, index) {
-          var order = orders[index];
-          var details = order['orderdetails_set']
-              .where((detail) => detail['detail_status'] == 'L')
-              .toList();
+      body: Container(
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage(
+                'assets/images/bg_principal.png'), // Reemplaza con la ruta de tu imagen
+            fit: BoxFit.cover,
+          ),
+        ),
+        child: ListView.builder(
+          itemCount: orders.length,
+          itemBuilder: (context, index) {
+            var order = orders[index];
+            var details = order['orderdetails_set']
+                .where((detail) => detail['detail_status'] == 'L')
+                .toList();
 
-          return ExpansionTile(
-            title: Text('Table ${order['table']}'),
-            children: details.map<Widget>((detail) {
-              return ListTile(
-                title: Text(detail['product_name']),
-                trailing: Text('Quantity: ${detail['quantity']}'),
-                onTap: () {
-                  changeStatus(detail['id'].toString());
-                },
-              );
-            }).toList(),
-          );
-        },
+            return ExpansionTile(
+              title: Text('Table ${order['table']}' , style: TextStyle(color: Colors.white)),
+              children: details.map<Widget>((detail) {
+                return ListTile(
+                  title: Text(detail['product_name'], style: TextStyle(color: Colors.white)),
+                  trailing: Text('Quantity: ${detail['quantity']}'),
+                  onTap: () {
+                    changeStatus(detail['id'].toString());
+                  },
+                );
+              }).toList(),
+            );
+          },
+        ),
       ),
     );
   }
