@@ -2,8 +2,6 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:proyecto_restaurante/models/dish.dart';
 import 'package:proyecto_restaurante/pages/Login.dart';
-import 'package:proyecto_restaurante/pages/order.dart';
-import 'package:proyecto_restaurante/pages/store.dart';
 import 'firebase_options.dart';
 
 void main() async {
@@ -25,7 +23,7 @@ class MyApp extends StatelessWidget {
     return const MaterialApp(
       title: 'Flutter Demo',
       debugShowCheckedModeBanner: false,
-      home: Order(),
+      home: Login(),
     );
   }
 }

@@ -60,83 +60,85 @@ class _LoginState extends State<Login> {
             fit: BoxFit.cover,
           ),
         ),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Padding(
-              padding: EdgeInsets.only(
-                top: MediaQuery.of(context).size.height * 0.01,
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Padding(
+                padding: EdgeInsets.only(
+                  top: MediaQuery.of(context).size.height * 0.219,
+                ),
+                child: Container(
+                  width: 350,
+                  height: 350,
+                  child: Image.asset("assets/images/logo.png"),
+                ),
               ),
-              child: Container(
-                width: 350,
-                height: 350,
-                child: Image.asset("assets/images/logo.png"),
+              SizedBox(height: 35),
+              Form(
+                key: _formKey,
+                child: Column(
+                  children: <Widget>[
+                    TextFormField(
+                      decoration: InputDecoration(
+                        labelText: 'Usuario',
+                        labelStyle:
+                            TextStyle(color: Colors.white), // Color del texto
+                        contentPadding: EdgeInsets.all(10.0), // Margen
+                      ),
+                      style: TextStyle(
+                          color: Colors.white), // Color del texto del input
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Por favor ingresa tu usuario';
+                        }
+                        return null;
+                      },
+                      onSaved: (value) {
+                        _username = value!;
+                      },
+                    ),
+                    SizedBox(height: 10), // Espacio entre los elementos
+                    TextFormField(
+                      decoration: InputDecoration(
+                        labelText: 'Contraseña',
+                        labelStyle:
+                            TextStyle(color: Colors.white), // Color del texto
+                        contentPadding: EdgeInsets.all(10.0), // Margen
+                      ),
+                      style: TextStyle(
+                          color: Colors.white), // Color del texto del input
+                      obscureText: true,
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Por favor ingresa tu contraseña';
+                        }
+                        return null;
+                      },
+                      onSaved: (value) {
+                        _password = value!;
+                      },
+                    ),
+                    SizedBox(height: 20), // Espacio entre los elementos
+                    InkWell(
+                      onTap: () {
+                        _submitForm();
+                      },
+                      child: CustomButton(
+                        color: Colors.white,
+                        iconVisible: false,
+                        text: "Iniciar sesión",
+                        textColor: Colors.black,
+                        onPressed: () {},
+                      ),
+                    ),
+                  ],
+                ),
               ),
-            ),
-            SizedBox(height: 35),
-            Form(
-              key: _formKey,
-              child: Column(
-                children: <Widget>[
-                  TextFormField(
-                    decoration: InputDecoration(
-                      labelText: 'Usuario',
-                      labelStyle:
-                          TextStyle(color: Colors.white), // Color del texto
-                      contentPadding: EdgeInsets.all(10.0), // Margen
-                    ),
-                    style: TextStyle(
-                        color: Colors.white), // Color del texto del input
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Por favor ingresa tu usuario';
-                      }
-                      return null;
-                    },
-                    onSaved: (value) {
-                      _username = value!;
-                    },
-                  ),
-                  SizedBox(height: 10), // Espacio entre los elementos
-                  TextFormField(
-                    decoration: InputDecoration(
-                      labelText: 'Contraseña',
-                      labelStyle:
-                          TextStyle(color: Colors.white), // Color del texto
-                      contentPadding: EdgeInsets.all(10.0), // Margen
-                    ),
-                    style: TextStyle(
-                        color: Colors.white), // Color del texto del input
-                    obscureText: true,
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Por favor ingresa tu contraseña';
-                      }
-                      return null;
-                    },
-                    onSaved: (value) {
-                      _password = value!;
-                    },
-                  ),
-                  SizedBox(height: 20), // Espacio entre los elementos
-                  InkWell(
-                    onTap: () {
-                      _submitForm();
-                    },
-                    child: CustomButton(
-                      color: Colors.white,
-                      iconVisible: false,
-                      text: "Iniciar sesión",
-                      textColor: Colors.black,
-                      onPressed: () {},
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            SizedBox(height: 16),
-            const SizedBox(height: 16),
-          ],
+              SizedBox(height: 16),
+              const SizedBox(height: 16),
+            ],
+          ),
         ),
       ),
     );

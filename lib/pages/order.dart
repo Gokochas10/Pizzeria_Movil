@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:proyecto_restaurante/models/dish.dart';
-import 'package:proyecto_restaurante/pages/store.dart';
+
 import 'package:proyecto_restaurante/services/user_services.dart';
 
 class Order extends StatefulWidget {
@@ -36,7 +35,9 @@ class _OrderState extends State<Order> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Order Page'),
+        title: Text('Order Page',
+        style: TextStyle(color: Colors.white), ),
+        
       ),
       body: Container(
         decoration: BoxDecoration(
@@ -55,10 +56,10 @@ class _OrderState extends State<Order> {
                 .toList();
 
             return ExpansionTile(
-              title: Text('Table ${order['table']}'),
+              title: Text('Table ${order['table']}' , style: TextStyle(color: Colors.white)),
               children: details.map<Widget>((detail) {
                 return ListTile(
-                  title: Text(detail['product_name']),
+                  title: Text(detail['product_name'], style: TextStyle(color: Colors.white)),
                   trailing: Text('Quantity: ${detail['quantity']}'),
                   onTap: () {
                     changeStatus(detail['id'].toString());
