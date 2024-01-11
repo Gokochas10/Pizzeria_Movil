@@ -77,7 +77,7 @@ class CustomHero extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      "Le Charme Culiniare",
+                      "La Cigarra",
                       style: GoogleFonts.inter(
                         color: Colors.white,
                         fontSize: 24,

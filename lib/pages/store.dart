@@ -7,8 +7,6 @@ import 'package:proyecto_restaurante/sections/store/store_dishes.dart';
 import 'package:proyecto_restaurante/pages/order.dart';
 import 'package:proyecto_restaurante/services/push_notification_service.dart';
 
-import '../sections/store/options.dart';
-
 const List<String> list = <String>['One', 'Two', 'Three', 'Four'];
 
 class Store extends StatefulWidget {
