@@ -6,8 +6,6 @@ import 'package:proyecto_restaurante/sections/store/dropdown.dart';
 import 'package:proyecto_restaurante/sections/store/store_dishes.dart';
 import 'package:proyecto_restaurante/pages/order.dart';
 import 'package:proyecto_restaurante/services/push_notification_service.dart';
-import 'package:proyecto_restaurante/services/user_services.dart';
-import '../sections/store/options.dart';
 
 const List<String> list = <String>['One', 'Two', 'Three', 'Four'];
 
@@ -58,7 +56,7 @@ class _StoreState extends State<Store> {
                   builder: (context) => Order()), // Order() es la nueva página
             );
           },
-          backgroundColor: const Color(0xFFFF4317),
+          backgroundColor: Colors.black,
           child: const Stack(
             children: [
               SizedBox(
@@ -79,16 +77,16 @@ class _StoreState extends State<Store> {
           ),
         ),
       ),
-      body: SingleChildScrollView(
+      body: const SingleChildScrollView(
         child: Column(
           children: [
-            const CustomHero(),
-            const SizedBox(height: 16),
-            Options(options: options1),
-            const SizedBox(height: 16),
-            Options(options: options2),
-            const MyWidget(),
-            const StoreDishes()
+            CustomHero(),
+            SizedBox(height: 16),
+            //Options(options: options1),
+            SizedBox(height: 16),
+            //Options(options: options2),
+            MyWidget(),
+            StoreDishes()
           ],
         ),
       ),

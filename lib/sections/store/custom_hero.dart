@@ -15,7 +15,7 @@ class CustomHero extends StatelessWidget {
       height: MediaQuery.of(context).size.height * 0.40,
       decoration: const BoxDecoration(
         image: DecorationImage(
-          image: AssetImage("assets/images/bg_restaurante.jpg"),
+          image: AssetImage("assets/images/principal.jpg"),
           fit: BoxFit.cover,
         ),
       ),
@@ -37,8 +37,8 @@ class CustomHero extends StatelessWidget {
                     ),
                     onPressed: () {
                       for (var detalle in listDetalles()) {
-                      detalle.quantity = 0;
-                    }
+                        detalle.quantity = 0;
+                      }
                       Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(
@@ -77,9 +77,9 @@ class CustomHero extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      "Le Charme Culiniare",
+                      "La Cigarra",
                       style: GoogleFonts.inter(
-                        color: Colors.black,
+                        color: Colors.white,
                         fontSize: 24,
                         fontWeight: FontWeight.w600,
                       ),
@@ -87,13 +87,13 @@ class CustomHero extends StatelessWidget {
                     const SizedBox(width: 8),
                     const Icon(
                       Icons.star,
-                      color: Colors.black,
+                      color: Colors.white,
                     ),
                     const SizedBox(width: 4),
                     Text(
                       "4.6",
                       style: GoogleFonts.inter(
-                        color: Colors.black,
+                        color: Colors.white,
                         fontSize: 16,
                         fontWeight: FontWeight.w600,
                       ),
@@ -109,7 +109,7 @@ class CustomHero extends StatelessWidget {
                     Text(
                       "Restaurante-Comida-Ecuatoriana-Vinos",
                       style: GoogleFonts.inter(
-                        color: Colors.black,
+                        color: Colors.white,
                         fontSize: 13,
                         fontWeight: FontWeight.w600,
                       ),

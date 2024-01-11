@@ -7,20 +7,20 @@ import 'firebase_options.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
+    options: DefaultFirebaseOptions
+        .currentPlatform, // Asegúrate de que esto esté aquí
   );
-  runApp( MyApp());
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-   MyApp({super.key});
-  
+  MyApp({super.key});
+
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     leerlista();
     return const MaterialApp(
-     
       title: 'Flutter Demo',
       debugShowCheckedModeBanner: false,
       home: Login(),
