@@ -5,6 +5,7 @@ import 'package:feather_icons/feather_icons.dart';
 import 'package:proyecto_restaurante/models/ordenes.dart';
 import 'package:proyecto_restaurante/pages/Login.dart';
 import 'package:proyecto_restaurante/pages/complete_order.dart';
+import 'package:proyecto_restaurante/pages/store.dart';
 // Importa la nueva página
 
 class CustomHero extends StatelessWidget {
@@ -36,13 +37,53 @@ class CustomHero extends StatelessWidget {
                       color: Colors.white,
                     ),
                     onPressed: () {
-                      for (var detalle in listDetalles()) {
-                        detalle.quantity = 0;
-                      }
-                      Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute(
-                            builder: (BuildContext context) => Login()),
+                      showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return AlertDialog(
+                            title: const Text('Confirmación'),
+                            content: const Text(
+                                '¿Estás seguro de que quieres volver al inicio de sesión?'),
+                            actions: <Widget>[
+                              TextButton(
+                                child: const Text('No'),
+                                onPressed: () {
+                                  Navigator.of(context)
+                                      .pop(); // Cierra el diálogo
+                                },
+                              ),
+                              TextButton(
+                                child: const Text('Limpiar orden'),
+                                onPressed: () {
+                                  for (var detalle in listDetalles()) {
+                                    detalle.quantity = 0;
+                                  }
+                                  Navigator.of(context)
+                                      .pop(); // Cierra el diálogo
+                                  Navigator.of(context).pushReplacement(
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            const Store()), // Reemplaza con tu página StorePage
+                                  );
+                                },
+                              ),
+                              TextButton(
+                                child: const Text('Sí'),
+                                onPressed: () {
+                                  for (var detalle in listDetalles()) {
+                                    detalle.quantity = 0;
+                                  }
+                                  Navigator.pushReplacement(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (BuildContext context) =>
+                                            const Login()),
+                                  );
+                                },
+                              ),
+                            ],
+                          );
+                        },
                       );
                     },
                   ),
