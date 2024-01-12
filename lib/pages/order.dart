@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:proyecto_restaurante/services/user_services.dart';
 
 class Order extends StatefulWidget {
-  const Order({Key? key}) : super(key: key);
+  const Order({super.key});
 
   @override
   State<Order> createState() => _OrderState();
@@ -35,12 +35,13 @@ class _OrderState extends State<Order> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Order Page',
-        style: TextStyle(color: Colors.white), ),
-        
+        title: const Text(
+          'ORDENES',
+          style: TextStyle(color: Colors.white),
+        ),
       ),
       body: Container(
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           image: DecorationImage(
             image: AssetImage(
                 'assets/images/bg_principal.png'), // Reemplaza con la ruta de tu imagen
@@ -56,13 +57,42 @@ class _OrderState extends State<Order> {
                 .toList();
 
             return ExpansionTile(
-              title: Text('Table ${order['table']}' , style: TextStyle(color: Colors.white)),
+              title: Text('MESA ${order['table']}',
+                  style: const TextStyle(color: Colors.white)),
               children: details.map<Widget>((detail) {
                 return ListTile(
-                  title: Text(detail['product_name'], style: TextStyle(color: Colors.white)),
-                  trailing: Text('Quantity: ${detail['quantity']}'),
+                  title: Text(detail['product_name'],
+                      style: const TextStyle(color: Colors.white)),
+                  trailing: Text('CANTIDAD: ${detail['quantity']}', style: const TextStyle(color: Colors.white)),
                   onTap: () {
-                    changeStatus(detail['id'].toString());
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return AlertDialog(
+                          title: const Text('Confirmación'),
+                          content: const Text(
+                              '¿Estás seguro de despachar el plato?'),
+                          actions: <Widget>[
+                            TextButton(
+                              child: const Text('No'),
+                              onPressed: () {
+                                Navigator.of(context)
+                                    .pop(); // Cierra el diálogo
+                              },
+                            ),
+                            TextButton(
+                              child: const Text('Sí'),
+                              onPressed: () {
+                                changeStatus(detail['id']
+                                    .toString()); // Cambia el estado
+                                Navigator.of(context)
+                                    .pop(); // Cierra el diálogo
+                              },
+                            ),
+                          ],
+                        );
+                      },
+                    );
                   },
                 );
               }).toList(),

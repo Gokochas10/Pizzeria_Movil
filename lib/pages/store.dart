@@ -53,7 +53,7 @@ class _StoreState extends State<Store> {
             Navigator.push(
               context,
               MaterialPageRoute(
-                  builder: (context) => Order()), // Order() es la nueva página
+                  builder: (context) => const Order()), // Order() es la nueva página
             );
           },
           backgroundColor: Colors.black,

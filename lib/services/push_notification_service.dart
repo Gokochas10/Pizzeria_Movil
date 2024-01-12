@@ -72,6 +72,6 @@ class PushNotificationService {
       ),
     );
 
-    overlay?.insert(overlayEntry);
+    overlay.insert(overlayEntry);
   }
 }

@@ -7,7 +7,7 @@ import 'package:proyecto_restaurante/services/user_services.dart';
 import 'package:proyecto_restaurante/widgets/custom_button.dart';
 
 Future<void> _backgroundMessageHandler(RemoteMessage message) async {
-  print("Handling a background message: ${message.messageId}");
+  //print("Handling a background message: ${message.messageId}");
 }
 
 class Login extends StatefulWidget {
@@ -34,17 +34,20 @@ class _LoginState extends State<Login> {
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
       // Aquí puedes hacer tu petición POST con _username y _password
-      print('Username: $_username');
-      print('Password: $_password');
+     
       if (await UserServices().postUserCredentials(_username, _password) ==
           true) {
+        // ignore: use_build_context_synchronously
+        _mostrarSnackbar(context, "Credenciales correctas");   
         // ignore: use_build_context_synchronously
         Navigator.push(
           context,
           MaterialPageRoute(builder: (context) => const Store()),
         );
       } else {
-        print("no vale");
+        // ignore: use_build_context_synchronously
+        _mostrarSnackbar(context, "Usuario o contraseña incorrectos");
+        return;
       }
     }
   }
@@ -66,27 +69,28 @@ class _LoginState extends State<Login> {
             children: [
               Padding(
                 padding: EdgeInsets.only(
-                  top: MediaQuery.of(context).size.height * 0.219,
+                  top: MediaQuery.of(context).size.height * 0.16,
                 ),
-                child: Container(
+                child: SizedBox(
                   width: 350,
                   height: 350,
                   child: Image.asset("assets/images/logo.png"),
                 ),
               ),
-              SizedBox(height: 35),
+              const SizedBox(height: 35),
               Form(
                 key: _formKey,
                 child: Column(
                   children: <Widget>[
                     TextFormField(
-                      decoration: InputDecoration(
+                      
+                      decoration: const InputDecoration(
                         labelText: 'Usuario',
                         labelStyle:
                             TextStyle(color: Colors.white), // Color del texto
                         contentPadding: EdgeInsets.all(10.0), // Margen
                       ),
-                      style: TextStyle(
+                      style: const TextStyle(
                           color: Colors.white), // Color del texto del input
                       validator: (value) {
                         if (value == null || value.isEmpty) {
@@ -97,16 +101,18 @@ class _LoginState extends State<Login> {
                       onSaved: (value) {
                         _username = value!;
                       },
+                      maxLength: 15,
                     ),
-                    SizedBox(height: 10), // Espacio entre los elementos
+                    const SizedBox(height: 10), // Espacio entre los elementos
                     TextFormField(
-                      decoration: InputDecoration(
+                      
+                      decoration: const InputDecoration(
                         labelText: 'Contraseña',
                         labelStyle:
                             TextStyle(color: Colors.white), // Color del texto
                         contentPadding: EdgeInsets.all(10.0), // Margen
                       ),
-                      style: TextStyle(
+                      style: const TextStyle(
                           color: Colors.white), // Color del texto del input
                       obscureText: true,
                       validator: (value) {
@@ -118,8 +124,9 @@ class _LoginState extends State<Login> {
                       onSaved: (value) {
                         _password = value!;
                       },
+                      maxLength: 15,
                     ),
-                    SizedBox(height: 20), // Espacio entre los elementos
+                    const SizedBox(height: 20), // Espacio entre los elementos
                     InkWell(
                       onTap: () {
                         _submitForm();
@@ -135,11 +142,19 @@ class _LoginState extends State<Login> {
                   ],
                 ),
               ),
-              SizedBox(height: 16),
+              const SizedBox(height: 16),
               const SizedBox(height: 16),
             ],
           ),
         ),
+      ),
+    );
+  }
+  void _mostrarSnackbar(BuildContext context, String mensaje) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(mensaje),
+        duration: const Duration(seconds: 2),
       ),
     );
   }
