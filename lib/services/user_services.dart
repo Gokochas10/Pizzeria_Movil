@@ -125,7 +125,7 @@ class UserServices {
       var getResponse = await http.get(url);
 
       var csrfToken = extractCsrfToken(getResponse.body);
-  
+
       var cookies = getResponse.headers['set-cookie'];
       if (csrfToken == null || cookies == null) {
         throw Exception('No se pudo obtener el token CSRF o las cookies');
@@ -150,6 +150,25 @@ class UserServices {
       print('La petición se envió, no nos importa la respuesta');
     } catch (e) {
       return false;
+    }
+  }
+
+  getOrdersAll() async {
+    try {
+      var url = Uri.parse('http://10.0.2.2:8000/api/orders/');
+
+      var response = await http.get(url);
+      if (response.statusCode == 200) {
+        List<dynamic> body = jsonDecode(response.body);
+        List<dynamic> ordersReady =
+            body.where((order) => order['order_status'] != 'C').toList();
+        return ordersReady;
+      } else {
+        return <dynamic>[];
+      }
+    } catch (e) {
+      print("no vale");
+      return <dynamic>[];
     }
   }
 }
