@@ -7,7 +7,8 @@ import 'package:proyecto_restaurante/models/ordenes.dart';
 
 class CustomDish extends StatefulWidget {
   final Dish dish;
-  const CustomDish({super.key, required this.dish});
+  final int quantity;
+  const CustomDish({super.key, required this.dish, this.quantity = 0});
 
   @override
   // ignore: library_private_types_in_public_api
@@ -16,6 +17,11 @@ class CustomDish extends StatefulWidget {
 
 class _CustomDishState extends State<CustomDish> {
   int quantity = 0;
+  @override
+  void initState() {
+    super.initState();
+    quantity = widget.quantity;
+  }
   List<OrderdetailsSet> detalles2 = listDetalles();
   void setQuantity(int productId, int cantidad) {
     for (var det in detalles2) {

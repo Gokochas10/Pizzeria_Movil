@@ -138,7 +138,7 @@ class CompleteOrder extends StatelessWidget {
                         GoogleFonts.inter(fontSize: 18.0, color: Colors.white),
                   ),
                   style: ElevatedButton.styleFrom(
-                    primary: Colors.black,
+                    backgroundColor: Colors.black,
                     padding: EdgeInsets.symmetric(vertical: 16.0),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10.0),

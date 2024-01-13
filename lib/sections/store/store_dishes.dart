@@ -3,8 +3,8 @@ import 'package:proyecto_restaurante/models/dish.dart';
 import 'package:proyecto_restaurante/widgets/custom_dish.dart';
 
 class StoreDishes extends StatelessWidget {
-  const StoreDishes({Key? key});
-
+  final List<dynamic> orderDetails;
+  const StoreDishes({super.key, this.orderDetails  = const []});
   @override
   Widget build(BuildContext context) {
     List<Dish> dishes = ListOfDishes();
@@ -19,7 +19,8 @@ class StoreDishes extends StatelessWidget {
       ),
       itemCount: dishes.length,
       itemBuilder: (context, index) {
-        return CustomDish(dish: dishes[index]);
+        var orderDetail = orderDetails.firstWhere((detail) => detail['product'] == dishes[index].id && detail['detail_status'] == 'P', orElse: () => null);
+        return CustomDish(dish: dishes[index], quantity: orderDetail != null ? orderDetail['quantity'] : 0);
       },
     );
   }

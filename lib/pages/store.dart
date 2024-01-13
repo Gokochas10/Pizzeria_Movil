@@ -10,7 +10,8 @@ import 'package:proyecto_restaurante/services/push_notification_service.dart';
 const List<String> list = <String>['One', 'Two', 'Three', 'Four'];
 
 class Store extends StatefulWidget {
-  const Store({super.key});
+  final List<dynamic> orderDetails;
+  const Store({super.key, this.orderDetails = const []});
 
   @override
   State<Store> createState() => _StoreState();
@@ -77,16 +78,16 @@ class _StoreState extends State<Store> {
           ),
         ),
       ),
-      body: const SingleChildScrollView(
+      body: SingleChildScrollView(
         child: Column(
           children: [
-            CustomHero(),
-            SizedBox(height: 16),
+            const CustomHero(),
+            const SizedBox(height: 16),
             //Options(options: options1),
-            SizedBox(height: 16),
+            const SizedBox(height: 16),
             //Options(options: options2),
-            MyWidget(),
-            StoreDishes()
+            const MyWidget(),
+            StoreDishes(orderDetails: widget.orderDetails)
           ],
         ),
       ),
