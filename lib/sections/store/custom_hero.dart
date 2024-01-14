@@ -10,7 +10,8 @@ import 'package:proyecto_restaurante/pages/store.dart';
 // Importa la nueva página
 
 class CustomHero extends StatelessWidget {
-  const CustomHero({super.key});
+  final dynamic order;
+  const CustomHero({super.key, this.order});
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -100,13 +101,25 @@ class CustomHero extends StatelessWidget {
                                 color: Colors.white,
                               ),
                               onPressed: () {
-                                // Navegar a la nueva página en blanco
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => const CompleteOrder(),
-                                  ),
-                                );
+                                if (order == null) {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) =>
+                                          const CompleteOrder(),
+                                    ),
+                                  );
+                                }else{
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) =>
+                                          CompleteOrder(order: order),
+                                    ),
+                                  );
+                                  print(order);
+                                }
+                               
                               },
                             ),
                           ],
@@ -136,7 +149,6 @@ class CustomHero extends StatelessWidget {
                   ),
                 ],
               ),
-              
               Container(
                 margin: const EdgeInsets.only(top: 150),
                 child: Row(

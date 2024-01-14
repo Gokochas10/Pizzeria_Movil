@@ -10,15 +10,15 @@ import 'package:proyecto_restaurante/services/push_notification_service.dart';
 const List<String> list = <String>['One', 'Two', 'Three', 'Four'];
 
 class Store extends StatefulWidget {
-  final List<dynamic> orderDetails;
-  const Store({super.key, this.orderDetails = const []});
-
+  final dynamic order;
+  const Store({super.key, this.order});
+  
   @override
   State<Store> createState() => _StoreState();
 }
 
 class _StoreState extends State<Store> {
- 
+  
   @override
   void initState() {
     super.initState();
@@ -81,13 +81,13 @@ class _StoreState extends State<Store> {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            const CustomHero(),
+            CustomHero(order: widget.order ),
             const SizedBox(height: 16),
             //Options(options: options1),
             const SizedBox(height: 16),
             //Options(options: options2),
             const MyWidget(),
-            StoreDishes(orderDetails: widget.orderDetails)
+            StoreDishes(orderDetails: widget.order != null ? widget.order['orderdetails_set'] : [])
           ],
         ),
       ),

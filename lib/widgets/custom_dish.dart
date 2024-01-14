@@ -21,17 +21,17 @@ class _CustomDishState extends State<CustomDish> {
   void initState() {
     super.initState();
     quantity = widget.quantity;
+    setQuantity(widget.dish.id, widget.quantity);
   }
   List<OrderdetailsSet> detalles2 = listDetalles();
   void setQuantity(int productId, int cantidad) {
     for (var det in detalles2) {
       if (det.product == productId) {
         det.quantity = cantidad;
-        print("se cabio ${det.quantity}");
+   
         return;  // No es necesario seguir buscando
       }
     }
-    print("no se cambio");
   } 
   @override
   Widget build(BuildContext context) {
@@ -56,7 +56,7 @@ class _CustomDishState extends State<CustomDish> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Container(
+            /*Container(
               height: 150,
               decoration: BoxDecoration(
                 image: DecorationImage(
@@ -68,7 +68,7 @@ class _CustomDishState extends State<CustomDish> {
                   topRight: Radius.circular(16),
                 ),
               ),
-            ),
+            ),*/
             const SizedBox(height: 8),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -142,9 +142,8 @@ class _CustomDishState extends State<CustomDish> {
                       setState(() {
                         if (quantity > 0) {
                           quantity--;
-                          print("dish id ${widget.dish.id}");
+                  
                           setQuantity(widget.dish.id, quantity);
-                          print(detalles2[widget.dish.id-1].quantity);
                          
                         }
                       });
@@ -166,9 +165,9 @@ class _CustomDishState extends State<CustomDish> {
                       setState(() {
                         if (quantity < 10){
                           quantity++;
-                          print("dish id ${widget.dish.id}");
+
                           setQuantity(widget.dish.id, quantity);
-                          print(detalles2[widget.dish.id-1].quantity);
+
                         }
               
                       });

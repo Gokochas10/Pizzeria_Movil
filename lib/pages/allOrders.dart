@@ -71,8 +71,7 @@ class _AllOrdersState extends State<AllOrders> {
                                 context,
                                 MaterialPageRoute(
                                   builder: (context) => Store(
-                                      orderDetails: orders[index]
-                                          ['orderdetails_set']),
+                                      order: orders[index]),
                                 ),
                               );
                             },

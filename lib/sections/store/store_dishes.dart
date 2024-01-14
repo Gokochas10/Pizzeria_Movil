@@ -12,7 +12,7 @@ class StoreDishes extends StatelessWidget {
       physics: const NeverScrollableScrollPhysics(),
       shrinkWrap: true,
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-        mainAxisExtent: 340,
+        mainAxisExtent: 200,
         crossAxisCount: 2,
         mainAxisSpacing: 23,
         crossAxisSpacing: 24,
