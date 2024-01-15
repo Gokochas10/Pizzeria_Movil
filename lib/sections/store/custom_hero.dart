@@ -4,16 +4,18 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:feather_icons/feather_icons.dart';
 import 'package:proyecto_restaurante/models/ordenes.dart';
 import 'package:proyecto_restaurante/pages/Login.dart';
+import 'package:proyecto_restaurante/pages/allOrders.dart';
 import 'package:proyecto_restaurante/pages/complete_order.dart';
 import 'package:proyecto_restaurante/pages/store.dart';
 // Importa la nueva página
 
 class CustomHero extends StatelessWidget {
-  const CustomHero({super.key});
+  final dynamic order;
+  const CustomHero({super.key, this.order});
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: MediaQuery.of(context).size.height * 0.40,
+      height: MediaQuery.of(context).size.height * 0.43,
       decoration: const BoxDecoration(
         image: DecorationImage(
           image: AssetImage("assets/images/principal.jpg"),
@@ -88,30 +90,65 @@ class CustomHero extends StatelessWidget {
                     },
                   ),
                   Expanded(
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
+                    child: Column(
                       children: [
-                        IconButton(
-                          icon: const Icon(
-                            FeatherIcons.clipboard,
-                            color: Colors.white,
-                          ),
-                          onPressed: () {
-                            // Navegar a la nueva página en blanco
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => const CompleteOrder(),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            IconButton(
+                              icon: const Icon(
+                                FeatherIcons.clipboard,
+                                color: Colors.white,
                               ),
-                            );
-                          },
+                              onPressed: () {
+                                if (order == null) {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) =>
+                                          const CompleteOrder(),
+                                    ),
+                                  );
+                                }else{
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) =>
+                                          CompleteOrder(order: order),
+                                    ),
+                                  );
+                                  print(order);
+                                }
+                               
+                              },
+                            ),
+                          ],
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            IconButton(
+                              icon: const Icon(
+                                Icons.view_list,
+                                color: Colors.white,
+                              ),
+                              onPressed: () {
+                                // Navegar a AllOrders
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => const AllOrders(),
+                                  ),
+                                );
+                              },
+                            ),
+                          ],
                         ),
                       ],
                     ),
                   ),
                 ],
               ),
-              const SizedBox(height: 16),
               Container(
                 margin: const EdgeInsets.only(top: 150),
                 child: Row(

@@ -125,7 +125,7 @@ class UserServices {
       var getResponse = await http.get(url);
 
       var csrfToken = extractCsrfToken(getResponse.body);
-  
+
       var cookies = getResponse.headers['set-cookie'];
       if (csrfToken == null || cookies == null) {
         throw Exception('No se pudo obtener el token CSRF o las cookies');
@@ -152,4 +152,49 @@ class UserServices {
       return false;
     }
   }
+
+  getOrdersAll() async {
+    try {
+      var url = Uri.parse('http://10.0.2.2:8000/api/orders/');
+
+      var response = await http.get(url);
+      if (response.statusCode == 200) {
+        List<dynamic> body = jsonDecode(response.body);
+        List<dynamic> ordersReady =
+            body.where((order) => order['order_status'] != 'C').toList();
+        return ordersReady;
+      } else {
+        return <dynamic>[];
+      }
+    } catch (e) {
+      print("no vale");
+      return <dynamic>[];
+    }
+  }
+
+  putOrders(String idorder, String idmesa, List<OrderdetailsSet> detalles) async {
+    try {
+      Map<String, dynamic> jsonData = {
+        "table": idmesa,
+        "orderdetails_set":
+            detalles.map((detalle) => detalle.toJson()).toList(),
+      };
+
+      // Convertir el objeto JSON a una cadena JSON
+      String jsonBody = jsonEncode(jsonData);
+     
+      var url = Uri.parse('http://10.0.2.2:8000/api/orders/$idorder/');
+
+      var response = await http.put(url,
+          headers: {"Content-Type": "application/json"}, body: jsonBody);
+      if (response.statusCode == 200) {
+        return true;
+      } else {
+        return false;
+      }
+    } catch (e) {
+      return false;
+    }
+  }
+
 }

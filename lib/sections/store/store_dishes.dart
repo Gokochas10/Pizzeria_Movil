@@ -3,8 +3,8 @@ import 'package:proyecto_restaurante/models/dish.dart';
 import 'package:proyecto_restaurante/widgets/custom_dish.dart';
 
 class StoreDishes extends StatelessWidget {
-  const StoreDishes({Key? key});
-
+  final List<dynamic> orderDetails;
+  const StoreDishes({super.key, this.orderDetails  = const []});
   @override
   Widget build(BuildContext context) {
     List<Dish> dishes = ListOfDishes();
@@ -12,14 +12,15 @@ class StoreDishes extends StatelessWidget {
       physics: const NeverScrollableScrollPhysics(),
       shrinkWrap: true,
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-        mainAxisExtent: 340,
+        mainAxisExtent: 200,
         crossAxisCount: 2,
         mainAxisSpacing: 23,
         crossAxisSpacing: 24,
       ),
       itemCount: dishes.length,
       itemBuilder: (context, index) {
-        return CustomDish(dish: dishes[index]);
+        var orderDetail = orderDetails.firstWhere((detail) => detail['product'] == dishes[index].id && detail['detail_status'] == 'P', orElse: () => null);
+        return CustomDish(dish: dishes[index], quantity: orderDetail != null ? orderDetail['quantity'] : 0);
       },
     );
   }

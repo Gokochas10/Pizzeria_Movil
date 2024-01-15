@@ -36,8 +36,8 @@ class _OrderState extends State<Order> {
     return Scaffold(
       appBar: AppBar(
         title: const Text(
-          'ORDENES',
-          style: TextStyle(color: Colors.white),
+          'Ordenes Listas',
+          style: TextStyle(color: Colors.black),
         ),
       ),
       body: Container(

@@ -8,7 +8,8 @@ import 'package:proyecto_restaurante/sections/store/dropdown.dart';
 import 'package:proyecto_restaurante/services/user_services.dart';
 
 class CompleteOrder extends StatelessWidget {
-  const CompleteOrder({super.key});
+  final dynamic order;
+  const CompleteOrder({super.key, this.order});
 
   @override
   Widget build(BuildContext context) {
@@ -95,7 +96,12 @@ class CompleteOrder extends StatelessWidget {
                                 fontSize: 14.0,
                               ),
                             ),
-                            Text('Mesa: ${index}')
+                            if(order != null)
+                              Text('Mesa: ${order['table']}')
+                            else
+                              Text('Mesa: ${index}')
+                            
+                            
                           ],
                         ),
                       ),
@@ -108,18 +114,27 @@ class CompleteOrder extends StatelessWidget {
                 child: ElevatedButton.icon(
                   onPressed: () async {
                     detallesClone = List.from(listDetalles());
-                    dropDishes();
+                    if (order == null){
+                      dropDishes();
+                    }
+                    
                     if (detallesClone.isEmpty) {
                       // ignore: use_build_context_synchronously
                       _mostrarSnackbar(context, 'No hay productos en la orden');
                       return;
                     }
-                    if (index == null) {
+                    if (index == null && order == null) {
                       // ignore: use_build_context_synchronously
                       _mostrarSnackbar(context, 'Seleccione una mesa antes de enviar');
                       return;
                     }
-                    await UserServices().postOrders(index!, detallesClone);
+                    if(order == null){
+                      await UserServices().postOrders(index!, detallesClone);
+                    }else{
+                      await UserServices().putOrders(order['id'].toString(), order['table'].toString(), detallesClone);
+                     
+                    }
+                    
                     //volver cero la cantidad de todos los productos originales
                     for (var detalle in listDetalles()) {
                       detalle.quantity = 0;
@@ -138,7 +153,7 @@ class CompleteOrder extends StatelessWidget {
                         GoogleFonts.inter(fontSize: 18.0, color: Colors.white),
                   ),
                   style: ElevatedButton.styleFrom(
-                    primary: Colors.black,
+                    backgroundColor: Colors.black,
                     padding: EdgeInsets.symmetric(vertical: 16.0),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10.0),
