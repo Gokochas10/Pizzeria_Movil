@@ -7,7 +7,8 @@ import 'package:proyecto_restaurante/models/ordenes.dart';
 
 class CustomDish extends StatefulWidget {
   final Dish dish;
-  const CustomDish({super.key, required this.dish});
+  final int quantity;
+  const CustomDish({super.key, required this.dish, this.quantity = 0});
 
   @override
   // ignore: library_private_types_in_public_api
@@ -16,16 +17,21 @@ class CustomDish extends StatefulWidget {
 
 class _CustomDishState extends State<CustomDish> {
   int quantity = 0;
+  @override
+  void initState() {
+    super.initState();
+    quantity = widget.quantity;
+    setQuantity(widget.dish.id, widget.quantity);
+  }
   List<OrderdetailsSet> detalles2 = listDetalles();
   void setQuantity(int productId, int cantidad) {
     for (var det in detalles2) {
       if (det.product == productId) {
         det.quantity = cantidad;
-        print("se cabio ${det.quantity}");
+   
         return;  // No es necesario seguir buscando
       }
     }
-    print("no se cambio");
   } 
   @override
   Widget build(BuildContext context) {
@@ -84,6 +90,27 @@ class _CustomDishState extends State<CustomDish> {
                       fontSize: 12,
                     ),
                   ),
+                  if(widget.dish.tipo == 1) Text(
+                    "Pizzas",
+                    style: GoogleFonts.inter(
+                      color: Colors.black,
+                      fontSize: 12,
+                    ),
+                  ),
+                  if(widget.dish.tipo == 2) Text(
+                    "Spaghettis",
+                    style: GoogleFonts.inter(
+                      color: Colors.black,
+                      fontSize: 12,
+                    ),
+                  ),
+                  if(widget.dish.tipo == 3) Text(
+                    "Bebidas",
+                    style: GoogleFonts.inter(
+                      color: Colors.black,
+                      fontSize: 12,
+                    ),
+                  ),
                   const SizedBox(
                       height: 8), // Espacio entre la descripción y el tiempo
                   Row(
@@ -136,9 +163,8 @@ class _CustomDishState extends State<CustomDish> {
                       setState(() {
                         if (quantity > 0) {
                           quantity--;
-                          print("dish id ${widget.dish.id}");
+                  
                           setQuantity(widget.dish.id, quantity);
-                          print(detalles2[widget.dish.id-1].quantity);
                          
                         }
                       });
@@ -160,9 +186,9 @@ class _CustomDishState extends State<CustomDish> {
                       setState(() {
                         if (quantity < 10){
                           quantity++;
-                          print("dish id ${widget.dish.id}");
+
                           setQuantity(widget.dish.id, quantity);
-                          print(detalles2[widget.dish.id-1].quantity);
+
                         }
               
                       });

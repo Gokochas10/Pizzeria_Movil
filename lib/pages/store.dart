@@ -1,23 +1,24 @@
 import 'package:feather_icons/feather_icons.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
+import 'package:proyecto_restaurante/models/dish.dart';
 import 'package:proyecto_restaurante/sections/store/custom_hero.dart';
 import 'package:proyecto_restaurante/sections/store/dropdown.dart';
+import 'package:proyecto_restaurante/sections/store/options.dart';
 import 'package:proyecto_restaurante/sections/store/store_dishes.dart';
 import 'package:proyecto_restaurante/pages/order.dart';
 import 'package:proyecto_restaurante/services/push_notification_service.dart';
 
-const List<String> list = <String>['One', 'Two', 'Three', 'Four'];
-
 class Store extends StatefulWidget {
-  const Store({super.key});
-
+  final dynamic order;
+  const Store({super.key, this.order});
+  
   @override
   State<Store> createState() => _StoreState();
 }
 
 class _StoreState extends State<Store> {
- 
+  
   @override
   void initState() {
     super.initState();
@@ -30,17 +31,29 @@ class _StoreState extends State<Store> {
       });
     });
   }
-
+  List<Dish> allDishes = ListOfDishes();
+  List<Dish> selectedDishes = ListOfDishes();
+  Map<Dish, int> dishQuantities = {};
+  void onMenuOptionSelected(int tipo) {
+    print(tipo);
+    setState(() {
+      if (tipo <= 0) {
+        // Si es "Todo", muestra todos los platos
+        selectedDishes = List.of(allDishes);
+      } else {
+        // Filtra por el tipo seleccionado
+        selectedDishes = allDishes.where((dish) => dish.tipo == tipo).toList();
+      }
+    });
+  }
   @override
   Widget build(BuildContext context) {
-    List<String> options1 = ["Cena", "Almuerzos", "Fideos", "Postre", "Pizza"];
-    String dropdownValue = list.first;
+
     List<String> options2 = [
-      "Carnes",
-      "Filetes",
-      "Hamburguesas",
-      "Comida Rapida",
-      "Otros"
+      "Todo",
+      "Pizzas",
+      "Spaghettis",
+      "Bebidas"
     ];
 
     return Scaffold(
@@ -53,7 +66,7 @@ class _StoreState extends State<Store> {
             Navigator.push(
               context,
               MaterialPageRoute(
-                  builder: (context) => Order()), // Order() es la nueva página
+                  builder: (context) => const Order()), // Order() es la nueva página
             );
           },
           backgroundColor: Colors.black,
@@ -77,16 +90,19 @@ class _StoreState extends State<Store> {
           ),
         ),
       ),
-      body: const SingleChildScrollView(
+      body: SingleChildScrollView(
         child: Column(
           children: [
-            CustomHero(),
-            SizedBox(height: 16),
-            //Options(options: options1),
-            SizedBox(height: 16),
-            //Options(options: options2),
-            MyWidget(),
-            StoreDishes()
+            CustomHero(order: widget.order ),
+            const SizedBox(height: 16),
+            Options(options: options2,
+              onMenuOptionSelected: (int tipo) {
+                onMenuOptionSelected(tipo);
+              },
+            ),
+            
+            const MyWidget(),
+            StoreDishes(dishes: selectedDishes,orderDetails: widget.order != null ? widget.order['orderdetails_set'] : [])
           ],
         ),
       ),
