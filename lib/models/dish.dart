@@ -8,6 +8,7 @@ class Dish {
   String? image;
   double? stars;
   String price;
+  int tipo;
 
   Dish({
     required this.id,
@@ -17,6 +18,7 @@ class Dish {
     this.image,
     this.stars,
     required this.price,
+    required this.tipo,
   });
 
   factory Dish.fromJson(Map<String, dynamic> json) {
@@ -24,6 +26,7 @@ class Dish {
       id: json['id'],
       name: json['name'],
       price: json['sale_price'],
+      tipo: json['category'],
     );
   }
 }
@@ -50,7 +53,8 @@ List<Dish> ListOfDishes()  {
         proximity: 30,
         image: "dish$i.jpg",
         stars: 4.6,
-        price: element.price
+        price: element.price,
+        tipo: element.tipo
         );
     dishes2return.add(dish);
     i++;
