@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:proyecto_restaurante/sections/store/store_dishes.dart';
 import 'package:proyecto_restaurante/widgets/simple_option.dart';
 
 class Options extends StatefulWidget {
   final List<String> options;
-
-  const Options({required this.options});
+  final Function(int) onMenuOptionSelected;
+  const Options({required this.options, required this.onMenuOptionSelected});
 
   @override
   _OptionsState createState() => _OptionsState();
@@ -27,10 +28,13 @@ class _OptionsState extends State<Options> {
             onTap: () {
               setState(() {
                 selectedIndex = index;
+                widget.onMenuOptionSelected(selectedIndex);
+                //print(selectedIndex);
               });
             },
             child: SingleOption(
               text: widget.options[index],
+              
               selected: selectedIndex == index,
             ),
           );

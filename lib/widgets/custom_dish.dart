@@ -56,7 +56,7 @@ class _CustomDishState extends State<CustomDish> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            /*Container(
+            Container(
               height: 150,
               decoration: BoxDecoration(
                 image: DecorationImage(
@@ -68,7 +68,7 @@ class _CustomDishState extends State<CustomDish> {
                   topRight: Radius.circular(16),
                 ),
               ),
-            ),*/
+            ),
             const SizedBox(height: 8),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -85,6 +85,27 @@ class _CustomDishState extends State<CustomDish> {
                   ),
                   Text(
                     widget.dish.store!,
+                    style: GoogleFonts.inter(
+                      color: Colors.black,
+                      fontSize: 12,
+                    ),
+                  ),
+                  if(widget.dish.tipo == 1) Text(
+                    "Pizzas",
+                    style: GoogleFonts.inter(
+                      color: Colors.black,
+                      fontSize: 12,
+                    ),
+                  ),
+                  if(widget.dish.tipo == 2) Text(
+                    "Spaghettis",
+                    style: GoogleFonts.inter(
+                      color: Colors.black,
+                      fontSize: 12,
+                    ),
+                  ),
+                  if(widget.dish.tipo == 3) Text(
+                    "Bebidas",
                     style: GoogleFonts.inter(
                       color: Colors.black,
                       fontSize: 12,
